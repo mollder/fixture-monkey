@@ -26,6 +26,11 @@ public static class GenericArrayObject<T> {
 }
 
 @Value
+public static class GenericSupplierObject<T> {
+    Supplier<T> foo;
+}
+
+@Value
 public static class TwoGenericObject<T, U> {
    T foo;
    U bar;

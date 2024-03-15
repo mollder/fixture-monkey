@@ -32,6 +32,7 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -39,28 +40,13 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import com.navercorp.fixturemonkey.api.generator.*;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 import com.navercorp.fixturemonkey.api.arbitrary.CombinableArbitrary;
 import com.navercorp.fixturemonkey.api.constraint.JavaConstraintGenerator;
 import com.navercorp.fixturemonkey.api.container.DecomposedContainerValueFactory;
-import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfoGenerator;
-import com.navercorp.fixturemonkey.api.generator.ArbitraryGenerator;
-import com.navercorp.fixturemonkey.api.generator.ArrayContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.ContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.DefaultObjectPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.DefaultSingleContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.EntryContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.MapContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.MapEntryElementContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.NoArgumentInterfaceJavaMethodPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.NullInjectGenerator;
-import com.navercorp.fixturemonkey.api.generator.ObjectPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.OptionalContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.SetContainerPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.SingleValueObjectPropertyGenerator;
-import com.navercorp.fixturemonkey.api.generator.StreamContainerPropertyGenerator;
 import com.navercorp.fixturemonkey.api.instantiator.InstantiatorProcessor;
 import com.navercorp.fixturemonkey.api.introspector.ArbitraryIntrospector;
 import com.navercorp.fixturemonkey.api.introspector.ArbitraryIntrospectorResult;
@@ -351,6 +337,10 @@ public final class FixtureMonkeyOptions {
 
 	private static List<MatcherOperator<ContainerPropertyGenerator>> getDefaultContainerPropertyGenerators() {
 		return Arrays.asList(
+			new MatcherOperator<>(
+				new AssignableTypeMatcher(Supplier.class).intersect(new SingleGenericTypeMatcher()),
+				SupplierContainerPropertyGenerator.INSTANCE
+			),
 			new MatcherOperator<>(
 				new AssignableTypeMatcher(Optional.class).intersect(new SingleGenericTypeMatcher()),
 				OptionalContainerPropertyGenerator.INSTANCE

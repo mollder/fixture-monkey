@@ -21,30 +21,12 @@ package com.navercorp.fixturemonkey.api.generator;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
 
+import com.navercorp.fixturemonkey.api.introspector.*;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 import com.navercorp.fixturemonkey.api.arbitrary.JavaTimeArbitraryGeneratorSet;
 import com.navercorp.fixturemonkey.api.arbitrary.JavaTypeArbitraryGeneratorSet;
-import com.navercorp.fixturemonkey.api.introspector.ArbitraryIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.ArbitraryIntrospectorResult;
-import com.navercorp.fixturemonkey.api.introspector.ArrayIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.BeanArbitraryIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.BooleanIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.EnumIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.IterableIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.IteratorIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.JavaArbitraryIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.ListIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.MapEntryElementIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.MapEntryIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.MapIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.MatchArbitraryIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.OptionalIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.QueueIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.SetIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.StreamIntrospector;
-import com.navercorp.fixturemonkey.api.introspector.UuidIntrospector;
 import com.navercorp.fixturemonkey.api.jqwik.JavaTimeArbitraryIntrospector;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -69,7 +51,8 @@ public final class JavaDefaultArbitraryGeneratorBuilder {
 			new MapIntrospector(),
 			new MapEntryIntrospector(),
 			new MapEntryElementIntrospector(),
-			new ArrayIntrospector()
+			new ArrayIntrospector(),
+			new SupplierIntrospector()
 		)
 	);
 	public static final ArbitraryIntrospector DEFAULT_FALLBACK_INTROSPECTOR =
